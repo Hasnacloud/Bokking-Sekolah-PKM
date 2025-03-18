@@ -5,48 +5,46 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Booking Sekolah PKM</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
-        <div class="container-lg">
-            <a class="navbar-brand" href="#">PKM</a>
+        <div class="container">
+            <a class="navbar-brand" href="#">PKM Booking</a>
         </div>
     </nav>
 
-    <div class="container-lg mt-4">
+    <div class="container mt-4">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-md-8">
                 <form id="bookingForm">
-                    <div class="mb-2">
-                        <label for="nama" class="form-label">Nama</label>
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control" id="nama" required>
                     </div>
-                    <div class="mb-2">
-                        <label for="nim" class="form-label">NIM</label>
+                    <div class="mb-3">
+                        <label for="nim" class="form-label">Nomor Induk Mahasiswa (NIM)</label>
                         <input type="number" class="form-control" id="nim" required>
                     </div>
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <label for="kelas" class="form-label">Kelas</label>
                         <input type="text" class="form-control" id="kelas" required>
                     </div>
                     <div class="mb-3">
-                        <label for="sekolah" class="form-label">Sekolah (ketik manual)</label>
+                        <label for="sekolah" class="form-label">Sekolah (contoh:SMAN 8)</label>
                         <input type="text" class="form-control" id="sekolah" required>
-                        <small class="text-danger" id="warning" style="display:none;">Sekolah ini sudah dipilih orang
-                            lain!</small>
+                        <small class="text-danger d-none" id="warning">Sekolah ini sudah dipilih orang lain!</small>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary w-100">Kirim Data</button>
                 </form>
             </div>
         </div>
 
         <div class="row mt-5">
-            <div class="col-lg-8">
+            <div class="col-lg-10">
                 <h4>Data Pendaftar</h4>
-                <table class="table table-bordered">
+                <table class="table table-bordered table-responsive">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -54,66 +52,17 @@
                             <th>NIM</th>
                             <th>Kelas</th>
                             <th>Sekolah</th>
+                            <th>Waktu</th>
                         </tr>
                     </thead>
-                    <tbody id="dataTable">
-                        <!-- Data akan muncul di sini -->
-                    </tbody>
+                    <tbody id="dataTable"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <script>
-        const bookingForm = document.getElementById("bookingForm");
-        const dataTable = document.getElementById("dataTable");
-        const sekolahInput = document.getElementById("sekolah");
-        const warning = document.getElementById("warning");
-
-        let bookedSchools = [];
-
-        bookingForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            const nama = document.getElementById("nama").value;
-            const nim = document.getElementById("nim").value;
-            const kelas = document.getElementById("kelas").value;
-            const sekolah = sekolahInput.value.trim();
-
-            if (bookedSchools.includes(sekolah.toLowerCase())) {
-                warning.style.display = "block";
-                return;
-            }
-
-            warning.style.display = "none";
-
-            bookedSchools.push(sekolah.toLowerCase());
-
-            const rowCount = dataTable.rows.length + 1;
-            const newRow = dataTable.insertRow();
-            newRow.insertCell(0).textContent = rowCount;
-            newRow.insertCell(1).textContent = nama;
-            newRow.insertCell(2).textContent = nim;
-            newRow.insertCell(3).textContent = kelas;
-            newRow.insertCell(4).textContent = sekolah;
-
-            bookingForm.reset();
-        });
-
-        // Cek realtime saat mengetik nama sekolah
-        sekolahInput.addEventListener("input", function () {
-            const value = sekolahInput.value.trim().toLowerCase();
-            if (bookedSchools.includes(value)) {
-                warning.style.display = "block";
-            } else {
-                warning.style.display = "none";
-            }
-        });
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<script src="script.js"></script>
 
 </html>
